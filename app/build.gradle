@@ -19,7 +19,13 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "com.mlsdev.mlsdevstore.TestRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: 'true'
+//        testInstrumentationRunner "com.mlsdev.mlsdevstore.TestRunner"
+    }
+
+    testOptions {
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
     }
 
     signingConfigs {
@@ -190,9 +196,18 @@ dependencies {
 
     // Unit tests
     //      JUnit
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     testImplementation "junit:junit:$junitVersion"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
     testImplementation "android.arch.core:core-testing:1.1.1"
+
+    // Barista
+    androidTestImplementation('com.schibsted.spain:barista:3.1.0') {
+        exclude group: 'com.android.support'
+        exclude group: 'org.jetbrains.kotlin'
+    }
+    // Orchestrator
+    androidTestUtil 'androidx.test:orchestrator:1.1.0'
 
 }
